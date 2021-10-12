@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #333336;
+        }
+
+        .container1 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+        .seconds {
+            position: absolute;
+            width: 40px;
+            height: 7px;
+            border-radius: 10px;
+            background: #f57df5;
+            box-shadow: 0 0 1em 0.13em #Ae52ce;
+        }
+
+        .container2 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+        .minutes {
+            position: absolute;
+            width: 35px;
+            height: 7px;
+            border-radius: 10px;
+            background: #FF3300;
+            box-shadow: 0 0 1em 0.13em #9B120C;
+        }
+
+        .container3 {
+            position: absolute;
+            left: 50%;
+            top: 49%;
+        }
+
+        .hours {
+            position: absolute;
+            width: 35px;
+            height: 25px;
+            border-radius: 10px;
+            background: #33fd67;
+            box-shadow: 0 0 1em 0.13em #24B148;
+        }
+
+        .time {
+            font-family: 'Lobster', cursive;
+            font-size: 45px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translatex(-42px) translatey(-22px);
+            text-shadow: 0 0 10px #87ceeb, 0 0 15px #87ceeb, 0 0 30px deepskyblue,
+                0 0 30px deepskyblue, 0 0 30px deepskyblue, 0 0 40px deepskyblue,
+                0 0 50px deepskyblue, 0 0 60px deepskyblue, 0 0 70px deepskyblue,
+                0 0 80px deepskyblue, 0 0 90px deepskyblue, 0 0 100px skyblue;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Clock</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link
+        href='https://fonts.googleapis.com/css?family=Lora|Lobster|Engagement|Slabo+27px|Merriweather|Indie+Flower|Black+Ops+One'
+        rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class='container1'></div>
+    <div class='container2'></div>
+    <div class='container3'></div>
+    <div class="time"></div>
+    <script>
+        $(document).ready(function () {
+            for (var i = 0; i < 60; i++) {
+                $('.container1').append('<div class="seconds" />');
+            }
+            for (var i = 0; i < 60; i++) {
+                $('.container2').append('<div class="minutes" />');
+            }
+            for (var i = 0; i < 12; i++) {
+                $('.container3').append('<div class="hours" />');
+            }
+
+            var deg = 264;
+            for (var i = 1; i < 61; i++) {
+                deg = deg + 6;
+                console.log(deg + " : " + i);
+                $('.seconds:nth-child(' + i + ')').css({
+                    '-webkit-transform': 'rotate(' + deg + 'deg) translatex(220px)',
+                    'opacity': '0.1'
+                });
+            }
+
+            console.log('__________________________________________________');
+            var deg2 = 264;
+            for (var i = 1; i < 61; i++) {
+                deg2 = deg2 + 6;
+                console.log(deg);
+                $('.minutes:nth-child(' + i + ')').css({
+                    '-webkit-transform': 'rotate(' + deg2 + 'deg) translatex(160px)',
+                    'opacity': '0.1'
+                });
+            }
+            console.log('__________________________________________________');
+            var deg3 = 240;
+            for (var i = 1; i < 13; i++) {
+                deg3 = deg3 + 30;
+                console.log(deg3 + " : aaaaaaaaaaaaa   " + i);
+                $('.hours:nth-child(' + i + ')').css({
+                    '-webkit-transform': 'rotate(' + deg3 + 'deg) translatex(110px)',
+                    'opacity': '0.1'
+                });
+            }
+
+
+            ////////////////////////////////////////////////////////////////////////////
+
+            var t = setInterval(function () {
+                var d = new Date();
+
+                console.log(time);
+                if (d.getHours() > 12) {
+                    var time = d.getHours() - 12 + ":" + d.getMinutes() + ":" + d.getSeconds();
+                    var h = d.getHours() - 12;
+                } else {
+                    var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+                    var h = d.getHours();
+                }
+                console.log(d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds());
+                //var h = d.getHours()-12;
+                var m = d.getMinutes();
+                var s = d.getSeconds();
+                for (var i = 1; i <= s + 1; i++) {
+                    if (s === 0) {
+                        $('.seconds').css({
+
+                            'opacity': '0.1'
+                        });
+                    }
+                    $('.seconds:nth-child(' + i + ')').css({
+
+                        'opacity': '1'
+                    });
+                }
+                for (var i = 1; i <= m + 1; i++) {
+                    if (m === 0) {
+                        $('.minutes').css({
+
+                            'opacity': '0.1'
+                        });
+                    }
+                    $('.minutes:nth-child(' + i + ')').css({
+
+                        'opacity': '1'
+                    });
+                }
+                for (var i = 1; i <= h + 1; i++) {
+                    if (h === 0) {
+                        $('.hours').css({
+
+                            'opacity': '0.1'
+                        });
+                    }
+                    $('.hours:nth-child(' + i + ')').css({
+
+                        'opacity': '1'
+                    });
+                }
+                $('.time').text(time);
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
